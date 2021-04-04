@@ -1,0 +1,49 @@
+$engine: 3
+name: FiveM
+version: 0.0.1
+author: CkDeveloper
+description: ESX v2-final base that can be easily extended.
+
+tasks:
+  # Download default CFX resources
+  - action: download_github
+    src: https://github.com/citizenfx/cfx-server-data
+    ref: 0210252be7c17745fa30220e12c19e0d2f19af02
+    subpath: resources
+    dest: ./resources
+
+  # Download and prepare server.cfg
+  - action: download_github
+    src: https://github.com/ck-developer/fivem-recipe
+    ref: master
+    dest: ./tmp/fivem_esx
+
+  - action: move_path
+    src: ./tmp/fivem_esx/server.cfg
+    dest: ./server.cfg
+
+  # Download basic resources and ESX dependencies
+  - action: download_github
+    src: https://github.com/esx-framework/async
+    ref: master
+    dest: ./resources/async
+
+  - action: download_github
+    src: https://github.com/brouznouf/fivem-mysql-async
+    ref: master
+    dest: ./resources/mysql-async
+
+  - action: download_github
+    src: https://github.com/esx-framework/cron
+    ref: master
+    dest: ./resources/cron
+
+  # Download ESX resources
+  - action: download_github
+    src: https://github.com/esx-framework/es_extended
+    ref: develop
+    dest: ./resources/[esx]/es_extended
+
+  # Clean up
+  - action: remove_path
+    path: ./tmp
